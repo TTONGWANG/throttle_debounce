@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            height: 500%
+        }
+    </style>
+</head>
+
+<body>
+    <button id = "btn">button</button>
+   
+    <script>
+        //  节流
+        // 一个函数执行一次后，只有大于设定的执行周期后才会执行第二次 
+        // 如果有一个需要频繁出发的函数，为了效率，在规定时间内只能第一次生效
+
+        // function throttle(fn, delay) {
+        //     //记录上一次出发的时间
+        //     let lastTime = 0  //上一次执行的时间
+        //     return function () {  //闭包，不会初始化lastTime的值，使用的是上一次的值
+        //         let nowTime = Date.now()  //当前的触发时间
+        //         if (nowTime - lastTime > delay) {
+        //             console.log(lastTime)
+        //             //修正this指向
+        //             fn.call(this);
+        //             lastTime = nowTime;
+        //         }
+        //     }
+        // }
+        // document.onscroll = throttle(() => { console.log('scroll事件被触发' + Date.now()) }, 1000)
+
+        //防抖函数
+        //一个需要频繁执行的函数，在某段时间内，只让最后一次生效
+        function debounce(fn, delay) {
+            //记录上一次的延时器
+            let timer = null;
+            return function(){
+                clearInterval(timer);
+                console.log(timer)
+                timer = setTimeout(() => {
+                    fn.apply(this);
+                }, delay);
+            }
+        };
+        document.getElementById('btn').onclick = debounce(()=>{console.log('点击事件被触发' + Date.now())},1000)
+    </script>
+
+
+
+</body>
+
+</html>
